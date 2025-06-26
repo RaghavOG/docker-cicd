@@ -17,5 +17,5 @@ jobs:
 
       - name: Build & Push
         run: |
-          docker build -t raghavog/next-ci-cd-demo .
-          docker push raghavog/next-ci-cd-demo
+          docker build -t 04raghavsingla28/next-ci-cd-demo .
+          docker push 04raghavsingla28/next-ci-cd-demo
