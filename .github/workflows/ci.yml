@@ -43,13 +43,13 @@ jobs:
     steps:
       - name: 📜 Generating CI summary
         run: |
-          echo "## CI Summary" > summary.md
-          echo "### Build Status: ${{ job.status }}" >> summary.md
-          echo "### Build Time: ${{ job.steps.build.outputs.duration }}" >> summary.md
-          echo "### Lint Status: ${{ job.steps.lint.outcome }}" >> summary.md
-          echo "### Test Status: ${{ job.steps.test.outcome }}" >> summary.md
-          echo "### Docker Build Status: ${{ job.steps.docker-build.outcome }}" >> summary.md
-          echo "### Commit: ${{ github.sha }}" >> summary.md
-          echo "### Branch: ${{ github.ref }}" >> summary.md
-          echo "### Author: ${{ github.actor }}" >> summary.md
-          echo "### Timestamp: $(date -u)" >> summary.md  
+          echo "## CI Summary"
+          echo "### Build Status: ${{ job.status }}" 
+          echo "### Build Time: ${{ job.steps.build.outputs.duration }}" 
+          echo "### Lint Status: ${{ job.steps.lint.outcome }}" 
+          echo "### Test Status: ${{ job.steps.test.outcome }}" 
+          echo "### Docker Build Status: ${{ job.steps.docker-build.outcome }}" 
+          echo "### Commit: ${{ github.sha }}" 
+          echo "### Branch: ${{ github.ref }}" 
+          echo "### Author: ${{ github.actor }}" 
+          echo "### Timestamp: $(date -u)"   
