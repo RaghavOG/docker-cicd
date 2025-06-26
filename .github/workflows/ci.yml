@@ -5,6 +5,10 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+    
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   build:
@@ -30,3 +34,22 @@ jobs:
 
       - name: 🐳 (Optional) Docker build
         run: docker build -t next-ci-cd-demo .
+  
+  ci-summary:
+    runs-on: ubuntu-latest
+    needs: build
+    if: always()
+
+    steps:
+      - name: 📜 Generating CI summary
+        run: |
+          echo "## CI Summary" > summary.md
+          echo "### Build Status: ${{ job.status }}" >> summary.md
+          echo "### Build Time: ${{ job.steps.build.outputs.duration }}" >> summary.md
+          echo "### Lint Status: ${{ job.steps.lint.outcome }}" >> summary.md
+          echo "### Test Status: ${{ job.steps.test.outcome }}" >> summary.md
+          echo "### Docker Build Status: ${{ job.steps.docker-build.outcome }}" >> summary.md
+          echo "### Commit: ${{ github.sha }}" >> summary.md
+          echo "### Branch: ${{ github.ref }}" >> summary.md
+          echo "### Author: ${{ github.actor }}" >> summary.md
+          echo "### Timestamp: $(date -u)" >> summary.md  
