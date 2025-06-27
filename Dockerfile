@@ -4,16 +4,17 @@ FROM node:18-alpine
 # Set working directory
 WORKDIR /app
 
-# Copy files
-COPY package*.json ./
-RUN npm install
-COPY . .
+# Only copy npm-related files
+COPY package.json ./
 
-# Build Next.js app
-RUN npm run build
+# Install dependencies
+RUN npm install --frozen-lockfile
+
+# Copy the rest of the app
+COPY . .
 
 # Expose port
 EXPOSE 3000
 
-# Start the app
-CMD ["npm", "start"]
+# Run dev server
+CMD ["npm", "run", "dev"]
