@@ -4,17 +4,23 @@ FROM node:18-alpine
 # Set working directory
 WORKDIR /app
 
-# Only copy npm-related files
+RUN apk add --no-cache openssl
+
+# Copy package files and install deps
 COPY package.json ./
+RUN npm install
 
-# Install dependencies
-RUN npm install --frozen-lockfile
+# Install prisma CLI
+RUN npm install -g prisma
 
-# Copy the rest of the app
+# Copy source code
 COPY . .
+
+# ✅ Generate Prisma client (for correct binary target)
+RUN prisma generate
 
 # Expose port
 EXPOSE 3000
 
-# Run dev server
+# Start app
 CMD ["npm", "run", "dev"]
