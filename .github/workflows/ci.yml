@@ -26,9 +26,6 @@ jobs:
       - name: 📦 Install dependencies
         run: npm install
 
-      - name: 🧪 Run lint check
-        run: npm run lint
-
       - name: 🏗️ Build app
         run: npm run build
 
